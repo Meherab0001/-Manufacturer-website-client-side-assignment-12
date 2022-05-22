@@ -10,7 +10,7 @@ import Loading from '../SharedComponent/Loading';
 
 
 const Login = () => {
-    const [signInWithGoogle, guser, gloading, gerror] = useSignInWithGoogle(auth);
+    const [signInWithGoogle, gUser, gloading, gerror] = useSignInWithGoogle(auth);
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [
         signInWithEmailAndPassword,
@@ -24,10 +24,10 @@ const Login = () => {
 
     let from = location.state?.from?.pathname || "/";
     useEffect(() => {
-        if (user || guser) {
+        if (user || gUser) {
             navigate(from);
         }
-    }, [from, navigate])
+    }, [user,gUser])
 
     let singInErrorMessage;
 

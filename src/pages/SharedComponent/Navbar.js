@@ -1,16 +1,26 @@
+import { signOut } from 'firebase/auth';
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/images/133293740-manufacture-welding-robot-line-icon-linear-style-sign-for-mobile-concept-and-web-design-conveyor-bel.jpg'
+import auth from '../../firebase.init';
 
 const Navbar = () => {
-
+    const logout = () => {
+        signOut(auth);
+        localStorage.removeItem('accessToken')
+      };
+      const [user, loading, error] = useAuthState(auth);
     const menuItem = <>
     <li><Link to="/">Home</Link></li>
     <li><Link to="/portfolio">Our-Portfolio</Link></li>
     <li><Link to="/blog">Blogs</Link></li>
  
     <li><Link to="/contact">Contact Us</Link></li>
-    <li><Link to="/login">Login</Link></li>
+    {
+      user && <li><Link to="/dashboard">Dashboard</Link></li>
+    }
+    <li>{user ? <button onClick={logout} class="btn btn-ghost">SingOUt</button> : <Link to="/login">Login</Link>}</li>
     
   </>
     return (

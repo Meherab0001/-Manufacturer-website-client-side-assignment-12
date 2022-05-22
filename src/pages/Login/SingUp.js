@@ -30,7 +30,7 @@ const SignUP = () => {
 
     if (user || guser) {
 
-        navigate('/' ||from)
+        navigate(from)
     }
 
     let singInErrorMessage;
