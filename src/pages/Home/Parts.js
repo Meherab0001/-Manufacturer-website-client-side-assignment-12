@@ -1,5 +1,6 @@
 import {  ShoppingCartIcon } from '@heroicons/react/solid';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Parts = ({parts}) => {
     const {img,name,description,quantity,price}=parts
@@ -13,7 +14,7 @@ const Parts = ({parts}) => {
                     <p>Available Quaintity:{quantity}</p>
                     <p>Price:${price} per unit</p>
                     <div class="card-actions justify-center">
-                        <button class="btn btn-primary"><ShoppingCartIcon className='w-12 h-10'></ShoppingCartIcon>purchase Now</button>
+                       <Link to='/purchase'> <button class="btn btn-primary"><ShoppingCartIcon className='w-12 h-10'></ShoppingCartIcon>purchase Now</button></Link>
                     </div>
                 </div>
             </div>
