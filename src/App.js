@@ -22,7 +22,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home></Home>}></Route>
         <Route path='/blog' element={<Blog />} />
-        <Route path='/purchase' element={<RequrireAuth>
+        <Route path='/tools/:id' element={<RequrireAuth>
           <Purchase></Purchase>
         </RequrireAuth>}></Route>
         <Route path='/dashboard' element={<RequrireAuth>

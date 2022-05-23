@@ -107,7 +107,7 @@ const Login = () => {
                         <input />
                         {singInErrorMessage}
                         <input className='btn  w-full max-w-xs text-white' type="submit" value="Login" />
-                        <p className='mt-2'><small>New to Doctors Portals?</small><Link className='text-primary' to='/singUp'>Create New Account.</Link></p>
+                        <p className='mt-2'><small>New to M anufacturer?</small><Link className='text-primary' to='/singUp'>Create New Account.</Link></p>
                     </form>
                     <div className="divider">OR</div>
                     <button
