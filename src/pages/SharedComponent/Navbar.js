@@ -11,6 +11,7 @@ const Navbar = () => {
     localStorage.removeItem('accessToken')
   };
   const [user, loading, error] = useAuthState(auth);
+
   const menuItem = <>
     <li><Link to="/">Home</Link></li>
     <li><Link to="/portfolio">Our-Portfolio</Link></li>
@@ -21,12 +22,12 @@ const Navbar = () => {
       user && <>
       
         <li><Link to="/dashboard">Dashboard</Link></li>
-
+        
       </>
     }
     <li>{user ?
       <button onClick={logout} class="btn btn-ghost">SingOUt</button> : <Link to="/login">Login</Link>}</li>
-
+ <p className='uppercase text-xl font-bold mt-2 text-info'>Login by:{user?.displayName}</p>
   </>
   return (
     <div class="navbar bg-base-100">
