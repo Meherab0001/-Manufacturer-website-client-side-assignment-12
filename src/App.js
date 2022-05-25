@@ -4,12 +4,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import Blog from './pages/Blogs/Blog';
 import AddReview from './pages/Dashboard/AddReview';
+import AddTools from './pages/Dashboard/AddTools';
 import Dashboard from './pages/Dashboard/Dashboard';
 import MyOrder from './pages/Dashboard/MyOrder';
 import MyProfile from './pages/Dashboard/MyProfile';
 import Users from './pages/Dashboard/Users';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
+import RequireAdmin from './pages/Login/RequireAdmin';
 import RequrireAuth from './pages/Login/RequrireAuth';
 import SignUP from './pages/Login/SingUp';
 import Purchase from './pages/Purchases/Purchase';
@@ -35,7 +37,12 @@ function App() {
           <Route index element={<MyProfile />}></Route>
           <Route path='orders' element={<MyOrder />}></Route>
           <Route path='review' element={<AddReview />}></Route>
-          <Route path='users' element={<Users />}></Route>
+          <Route path='users' element={<RequireAdmin>
+            <Users />
+          </RequireAdmin>}></Route>
+          <Route path='addTools' element={<RequireAdmin>
+            <AddTools />
+          </RequireAdmin>}></Route>
         </Route>
         <Route path='/login' element={<Login />} />
         <Route path='/singUp' element={<SignUP></SignUP>}></Route>
