@@ -26,8 +26,12 @@ const Navbar = () => {
       </>
     }
     <li>{user ?
-      <button onClick={logout} class="btn btn-ghost">SingOUt</button> : <Link to="/login">Login</Link>}</li>
- <p className='uppercase text-xl font-bold mt-2 text-info'>Login by:{user?.displayName}</p>
+      <>
+      <button onClick={logout} class="btn btn-ghost">SingOUt</button> 
+      <p className='uppercase text-xl font-bold mt-2 text-info'>Login by:{user?.displayName}</p>
+       </>
+      : <Link to="/login">Login</Link>}</li>
+ 
   </>
   return (
     <div class="navbar bg-base-100">
