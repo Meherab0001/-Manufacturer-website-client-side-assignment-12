@@ -1,147 +1,191 @@
-
+import { async } from '@firebase/util';
 import { signOut } from 'firebase/auth';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useForm } from 'react-hook-form';
+import { useQuery } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import auth from '../../firebase.init';
+import Loading from '../SharedComponent/Loading';
 
 const Purchase = () => {
-    const [purchase, setPurchase] = useState([])
-    const [total, setTotal] = useState(null)
+    const { register, formState: { errors }, handleSubmit, reset } = useForm();
+
     const { id: _id } = useParams()
     const [user, loading, error] = useAuthState(auth);
     const navigate = useNavigate()
+    const { data: purchase, isLoading } = useQuery('purchase', () => fetch(`http://localhost:5000/tools/${_id}`, {
+        method: "GEt",
+        headers: {
+            'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+        }
+    }).then(res => {
+        if (res.status === 401 || res.status === 403) {
+            signOut(auth);
+            localStorage.removeItem('accessToken')
+            navigate('/')
+        }
+
+        return res.json()
+
+    }))
 
 
-    useEffect(() => {
-     
-            fetch(`http://localhost:5000/tools/${_id}`, {
-                method: "GEt",
-                headers: {
-                    'authorization': `Bearer ${localStorage.getItem('accessToken')}`
-                }
-            })
-                .then(res => {
+    const onSubmit = async (data) => {
 
-                    if (res.status === 401 || res.status === 403) {
-                        signOut(auth);
-                        localStorage.removeItem('accessToken')
-                        navigate('/')
-                    }
+        const Orderprice = Number(purchase.price)
+        const avilableTools = purchase.quantity
+        const minOrderQuantity = Number(data.minimum_quantity)
 
-                    res.json()
-                })
-                .then(data => {
-                    console.log(data)
-                    setPurchase(data)})
-
-      
-    }
-
-        , [_id])
-
-
-    const handlePurchase = event => {
-        event.preventDefault()
-        const orderPurchase = {
+        const total = Orderprice * minOrderQuantity
+        const orderPurcashe = {
+            name: purchase.name,
+            price: purchase.price,
+            minQuantity: data.minimum_quantity,
+            total,
             email: user.email,
-            miniumQunatity: purchase.minimum_quantity,
-            order: event.target.orderQunatity.value,
-            avilabeTools: purchase.quantity,
-            orderPirce: purchase.price,
-
+            location: data.location,
         }
-
-        const miniumOrder = parseFloat(orderPurchase.miniumQunatity)
-        const orderNumber = parseFloat(orderPurchase.order)
-        const orderPriceUnit = parseFloat(orderPurchase.orderPirce)
-        const avilable = parseFloat(orderPurchase.avilabeTools)
-
-        if (orderNumber < miniumOrder || orderNumber > avilable) {
-
-            return toast.error('Make sure your order quantiry')
-
-
-
-        }
-        else {
-            const total = orderNumber * orderPriceUnit
-            setTotal(total)
-            console.log(total)
-            toast.success('order success')
-        }
-
-        fetch('http://localhost:5000/orders', {
+        fetch('http://localhost:5000/order', {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`
             },
-            body: JSON.stringify(orderPurchase)
+            body: JSON.stringify(orderPurcashe)
         })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-            })
+            .then((res => {
+                console.log(res)
 
-
-
-
-
-
-
-        /*   console.log(orderPurchase,orderPurchase.orderPirce,orderNumber,orderPriceUnit,avilable)
-       */
+                return res.json()
+            }))
+            toast.success('Order successfull')
+        reset()
+    }
+    if (isLoading) {
+        return <Loading></Loading>
     }
     return (
-        <div class="hero h-screen ">
-            <h2></h2>
-        <div class="hero-content flex-col lg:flex-row-reverse">
-               
-                <div>
-                    <form onSubmit={handlePurchase}>
-                        <div class="form-control">
-                            <label class="label">
-                                <span class="label-text">Email</span>
-                            </label>
-                            <input type="text" name='email' value={user.email} class="input input-bordered" disabled />
-                        </div>
-                        <div class="form-control">
-                            <label class="label">
-                                <span class="label-text">Minimu Qunantity:</span>
-                            </label>
-                            <input type="text" name='minimumQunatity' value={purchase.minimum_quantity} class="input input-bordered" disabled />
-                        </div>
-                        <div class="form-control">
-                            <label class="label">
-                                <span class="label-text">Price per Unit:</span>
-                            </label>
-                            <input type="text" name='price' value={purchase.price} class="input input-bordered" disabled />
-                        </div>
-                        <div class="form-control">
-                            <label class="label">
-                                <span class="label-text">Order Quantity:</span>
-                            </label>
-                            <input type="number" name='orderQunatity' class="input input-bordered" />
-                        </div>
-                        <div class="form-control">
-                            <label class="label">
-                                <span class="label-text">Total Price:</span>
-                            </label>
+        <div className='grid grid-cols-1 lg:grid-cols-2'>
+            <div>
+                <img src={purchase.img} alt="" />
+                <h2>Minimum:{purchase.minimum_quantity
+                }</h2>
+                <h2>Available:{purchase.quantity
+                }</h2>
+                <h2>Price$:{purchase.price}</h2>
+            </div>
+            <div>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <div class="form-control w-full max-w-xs">
+                        <label class="label">
+                            <span class="label-text">Tools Name</span>
+
+                        </label>
+                        <input type="text"
+                            placeholder="Tools Name"
+                            class="input input-bordered w-full max-w-xs"
+                            value={purchase.name} disabled
+                        />
+
+                    </div>
+                    <div class="form-control w-full max-w-xs">
+                        <label class="label">
+                            <span class="label-text">Email</span>
+
+                        </label>
+                        <input type="text"
+                            placeholder="Tools Name"
+                            class="input input-bordered w-full max-w-xs"
+                            value={user.email} disabled
+                        />
+
+                    </div>
+
+                    <div class="form-control w-full max-w-xs">
+                        <label class="label">
+                            <span class="label-text">Your Location</span>
+
+                        </label>
+                        <input type="text"
+                            placeholder="Description product"
+                            class="input input-bordered w-full max-w-xs"
+                            {...register("location",
+
+                                {
+
+                                    required: {
+                                        value: true,
+                                        message: 'Your address here'
+                                    },
+
+                                }
+                            )}
+                        />
+                        <label class="label">
+
+                        </label>
+                    </div>
+                    <div class="form-control w-full max-w-xs">
+                        <label class="label">
+                            <span class="label-text">Price per unit</span>
+
+                        </label>
+                        <input type="number"
+                            placeholder="price"
+                            class="input input-bordered w-full max-w-xs"
+                            value={purchase.price} disabled
+                        />
+
+                    </div>
+                    <div class="form-control w-full max-w-xs">
+                        <label class="label">
+                            <span class="label-text">Minimum Qunatity</span>
+
+                        </label>
+                        <input type="number" min={purchase.minimum_quantity} max={purchase.quantity}
+
+                            placeholder="Minimum Quantity"
+                            class="input input-bordered w-full max-w-xs"
+                            {...register("minimum_quantity",
+
+                                {
+
+                                    required: {
+                                        value: true,
+                                        message: 'Please put minimum number'
+                                    },
+
+                                }
+                            )}
+                        />
+                        <label class="label">
 
 
-                        </div>
-                        <div class="form-control">
-                            <label class="label">
-                                <span class="label-text">Available Quantity:</span>
-                            </label>
-                            <input type="number" name='avilable' value={purchase.quantity} class="input input-bordered" />
-                        </div>
-                        <input
+                        </label>
+                    </div>
 
-                            type="submit" className='btn btn-secondary' value="Buy Now" />
-                    </form>
-                </div>
+
+                    <div class="form-control w-full max-w-xs">
+                        <label class="label">
+                            <span class="label-text">Total Price</span>
+
+                        </label>
+                        <input type="number"
+
+                            placeholder="Total price"
+                            class="input input-bordered w-full max-w-xs"
+
+                        />
+                        <label class="label">
+                            {errors.number?.type === 'required' && <span class="label-text-alt text-red-500">{errors.number.message}</span>}
+
+                        </label>
+                    </div>
+                    <input className='btn  w-full max-w-xs text-white' type="submit" value="Buy Now" />
+
+                </form>
             </div>
         </div>
     );
