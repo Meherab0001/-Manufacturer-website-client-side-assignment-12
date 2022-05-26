@@ -11,7 +11,12 @@ import OrderList from './OrderList';
 const MyOrder = () => {
     const [user] = useAuthState(auth)
 
-    const { data: order, isLoading } = useQuery('order', () => fetch(`http://localhost:5000/order/${user.email}`).then(res => res.json()))
+    const { data: order, isLoading } = useQuery('order', () => fetch(`http://localhost:5000/order/${user.email}`,{
+        method: "GET",
+        headers: {
+            'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+        }
+    }).then(res => res.json()))
     if (isLoading) {
         return <Loading></Loading>
     }

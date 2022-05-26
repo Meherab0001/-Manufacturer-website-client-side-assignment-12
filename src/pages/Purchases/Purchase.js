@@ -16,7 +16,7 @@ const Purchase = () => {
     const [user, loading, error] = useAuthState(auth);
     const navigate = useNavigate()
     const { data: purchase, isLoading } = useQuery('purchase', () => fetch(`http://localhost:5000/tools/${_id}`, {
-        method: "GEt",
+        method: "GET",
         headers: {
             'authorization': `Bearer ${localStorage.getItem('accessToken')}`
         }
@@ -124,6 +124,7 @@ const Purchase = () => {
                             )}
                         />
                         <label class="label">
+                        {errors.location?.type === 'required' && <span class="label-text-alt text-red-500">{errors.location.message}</span>}
 
                         </label>
                     </div>

@@ -4,12 +4,13 @@ import { useForm } from 'react-hook-form';
 const AddTools = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
 
-    const imageStoreKey = 'cfed32034996e50c7ebfb59490dbe3c2'
+    const imageStoreKey = '1844e0acbd9be3a9a02d26c79a260bfb'
 
     const onSubmit = async (data) => {
+
         const image = data.img[0]
         const formData = new FormData()
-        formData.append('img', image)
+        formData.append('image', image)
         const url = `https://api.imgbb.com/1/upload?key=${imageStoreKey}`
         fetch(url, {
             method: "POST",
@@ -19,6 +20,28 @@ const AddTools = () => {
             .then(result => {
                 console.log('imgbb', result)
             })
+        const addTools = {
+            name: data.name,
+            description: data.description,
+            price: data.price,
+            img:data.img,
+            minimum_quantity: data.minimum_quantity,
+            quantity: data.quantity
+
+        }
+        console.log(addTools)
+        fetch('http://localhost:5000/tools', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+            },
+            body: JSON.stringify(addTools)
+        })
+            .then((res => {
+                console.log(res)
+                return res.json()
+            }))
 
     };
     return (
@@ -56,7 +79,7 @@ const AddTools = () => {
 
                     </label>
                     <input type="file"
-
+                        placeholder="Your Name"
                         class="input input-bordered w-full max-w-xs"
                         {...register("img",
 
@@ -71,7 +94,82 @@ const AddTools = () => {
                         )}
                     />
                     <label class="label">
-                        {errors.file?.type === 'required' && <span class="label-text-alt text-red-500">{errors.file.message}</span>}
+                        {errors.img?.type === 'required' && <span class="label-text-alt text-red-500">{errors.img.message}</span>}
+
+                    </label>
+                </div>
+                <div class="form-control w-full max-w-xs">
+                    <label class="label">
+                        <span class="label-text">Price per Unit</span>
+
+                    </label>
+                    <input type="text"
+                        placeholder="Your Name"
+                        class="input input-bordered w-full max-w-xs"
+                        {...register("price",
+
+                            {
+
+                                required: {
+                                    value: true,
+                                    message: 'Price is Required'
+                                },
+
+                            }
+                        )}
+                    />
+                    <label class="label">
+                        {errors.price?.type === 'required' && <span class="label-text-alt text-red-500">{errors.price.message}</span>}
+
+                    </label>
+                </div>
+                <div class="form-control w-full max-w-xs">
+                    <label class="label">
+                        <span class="label-text">Minimum Quantity</span>
+
+                    </label>
+                    <input type="text"
+                        placeholder="Your Name"
+                        class="input input-bordered w-full max-w-xs"
+                        {...register("minimum_quantity",
+
+                            {
+
+                                required: {
+                                    value: true,
+                                    message: 'Minimum Quantity is Required'
+                                },
+
+                            }
+                        )}
+                    />
+                    <label class="label">
+                        {errors.minimum_quantity?.type === 'required' && <span class="label-text-alt text-red-500">{errors.minimum_quantity.message}</span>}
+
+                    </label>
+                </div>
+                <div class="form-control w-full max-w-xs">
+                    <label class="label">
+                        <span class="label-text">Quantity</span>
+
+                    </label>
+                    <input type="text"
+                        placeholder="Your Name"
+                        class="input input-bordered w-full max-w-xs"
+                        {...register("quantity",
+
+                            {
+
+                                required: {
+                                    value: true,
+                                    message: 'Quantity is Required'
+                                },
+
+                            }
+                        )}
+                    />
+                    <label class="label">
+                        {errors.quantity?.type === 'required' && <span class="label-text-alt text-red-500">{errors.quantity.message}</span>}
 
                     </label>
                 </div>
@@ -81,7 +179,7 @@ const AddTools = () => {
 
                     </label>
                     <input type="text"
-                        placeholder="Description product"
+                        placeholder="Your Name"
                         class="input input-bordered w-full max-w-xs"
                         {...register("description",
 
@@ -89,70 +187,23 @@ const AddTools = () => {
 
                                 required: {
                                     value: true,
-                                    message: 'Please Describe'
+                                    message: 'Description is Required'
                                 },
 
                             }
                         )}
                     />
                     <label class="label">
-                        {errors.text?.type === 'required' && <span class="label-text-alt text-red-500">{errors.text.message}</span>}
+                        {errors.description?.type === 'required' && <span class="label-text-alt text-red-500">{errors.description.message}</span>}
 
                     </label>
                 </div>
-                <div class="form-control w-full max-w-xs">
-                    <label class="label">
-                        <span class="label-text">Price per unit</span>
 
-                    </label>
-                    <input type="number"
-                        placeholder="price"
-                        class="input input-bordered w-full max-w-xs"
-                        {...register("price",
 
-                            {
 
-                                required: {
-                                    value: true,
-                                    message: 'Please set price per unit'
-                                },
 
-                            }
-                        )}
-                    />
-                    <label class="label">
-                        {errors.number?.type === 'required' && <span class="label-text-alt text-red-500">{errors.number.message}</span>}
 
-                    </label>
-                </div>
-                <div class="form-control w-full max-w-xs">
-                    <label class="label">
-                        <span class="label-text">Minimum Qunatity</span>
 
-                    </label>
-                    <input type="number"
-                        placeholder="Password"
-                        class="input input-bordered w-full max-w-xs"
-                        {...register("minimum_quantity",
-
-                            {
-
-                                required: {
-                                    value: true,
-                                    message: 'Please put minimum number'
-                                },
-
-                            }
-                        )}
-                    />
-                    <label class="label">
-
-                    </label>
-                </div>
-                <label class="label">
-                    {errors.number?.type === 'required' && <span class="label-text-alt text-red-500">{errors.number.message}</span>}
-
-                </label>
 
 
                 <input className='btn  w-full max-w-xs text-white' type="submit" value="Add Tools" />
