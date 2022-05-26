@@ -15,7 +15,7 @@ const CheckoutFrom = ({payment}) => {
     const {total}=payment
 
     useEffect(()=>{
-        fetch('`http://localhost:5000/create-paymetn-intent',{
+        fetch('https://young-fjord-38482.herokuapp.com/create-paymetn-intent',{
             method:'POST',
             headers: {
                 'content-type':'application/json',

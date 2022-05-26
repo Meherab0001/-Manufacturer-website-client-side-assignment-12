@@ -5,7 +5,7 @@ const Tools = () => {
     const [tools,setTools]=useState([])
 
     useEffect(()=>{
-        fetch('http://localhost:5000/tools',{
+        fetch('https://young-fjord-38482.herokuapp.com/tools',{
             method:'GET',
             headers:{
                 'authorization':`Bearer ${localStorage.getItem('accessToken')}`

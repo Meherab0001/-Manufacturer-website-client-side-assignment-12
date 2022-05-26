@@ -5,7 +5,7 @@ import UserRaw from './UserRaw';
 
 const Users = () => {
 
-    const { data: users, isLoading ,refetch} = useQuery('users', () => fetch('http://localhost:5000/users',{
+    const { data: users, isLoading ,refetch} = useQuery('users', () => fetch('https://young-fjord-38482.herokuapp.com/users',{
         method:'GET',
        headers:{
            authorization:`Bearer ${localStorage.getItem('accessToken')}`

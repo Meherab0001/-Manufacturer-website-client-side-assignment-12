@@ -14,7 +14,7 @@ const Navbar = () => {
 
   const menuItem = <>
     <li><Link to="/">Home</Link></li>
-    <li><Link to="/portfolio">Our-Portfolio</Link></li>
+    <li><Link to="/portfolio">My Portfolio</Link></li>
     <li><Link to="/blog">Blogs</Link></li>
 
     <li><Link to="/contact">Contact Us</Link></li>
@@ -27,6 +27,7 @@ const Navbar = () => {
     }
     <li>{user ?
       <>
+     
       <button onClick={logout} class="btn btn-ghost">SingOUt</button> 
       <p className='uppercase text-xl font-bold mt-2 text-info'>Login by:{user?.displayName}</p>
        </>

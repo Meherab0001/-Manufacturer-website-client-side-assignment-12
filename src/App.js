@@ -15,6 +15,7 @@ import Login from './pages/Login/Login';
 import RequireAdmin from './pages/Login/RequireAdmin';
 import RequrireAuth from './pages/Login/RequrireAuth';
 import SignUP from './pages/Login/SingUp';
+import MyPortfolio from './pages/MyPortfolio';
 import NotFound from './pages/NotFound';
 import Purchase from './pages/Purchases/Purchase';
 import Footer from './pages/SharedComponent/Footer';
@@ -29,6 +30,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home></Home>}></Route>
         <Route path='/blog' element={<Blog />} />
+        <Route path='/portfolio' element={<MyPortfolio />} />
         <Route path='/tools/:id' element={<RequrireAuth>
           <Purchase></Purchase>
         </RequrireAuth>}></Route>

@@ -15,7 +15,7 @@ const Purchase = () => {
     const { id: _id } = useParams()
     const [user, loading, error] = useAuthState(auth);
     const navigate = useNavigate()
-    const { data: purchase, isLoading } = useQuery('purchase', () => fetch(`http://localhost:5000/tools/${_id}`, {
+    const { data: purchase, isLoading } = useQuery('purchase', () => fetch(`https://young-fjord-38482.herokuapp.com/tools/${_id}`, {
         method: "GET",
         headers: {
             'authorization': `Bearer ${localStorage.getItem('accessToken')}`
@@ -47,7 +47,7 @@ const Purchase = () => {
             email: user.email,
             location: data.location,
         }
-        fetch('http://localhost:5000/order', {
+        fetch('https://young-fjord-38482.herokuapp.com/', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

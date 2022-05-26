@@ -30,7 +30,7 @@ const AddTools = () => {
 
         }
         console.log(addTools)
-        fetch('http://localhost:5000/tools', {
+        fetch('https://young-fjord-38482.herokuapp.com/tools', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

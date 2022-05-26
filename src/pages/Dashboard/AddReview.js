@@ -13,7 +13,7 @@ const AddReview = () => {
             description:event.target.description.value,
             rating:event.target.rating.value,
         }
-       fetch('http://localhost:5000/reviews',{
+       fetch('https://young-fjord-38482.herokuapp.com/reviews',{
         method: 'POST',
         headers:{
             'content-type': 'application/json',

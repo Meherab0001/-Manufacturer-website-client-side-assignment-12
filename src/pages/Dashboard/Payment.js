@@ -14,7 +14,7 @@ const Payment = () => {
     const stripePromise = loadStripe('pk_test_pk_test_51L3gRiJG15rpMYSm9BEmOmpRDRy3MFaflR7aZcGue7AwXrJg108TqMowwqrBgYfUCqJS7iexvwu8RmQrFbbCbLzj00d7MGDnXs');
     const { id } = useParams()
 
-    const url = `http://localhost:5000/p-order/${id}`
+    const url = `https://young-fjord-38482.herokuapp.com/p-order/${id}`
     const { data: payment, isLoading } = useQuery(['payment', id], () =>
         fetch(url, {
             method: "GET",
@@ -23,7 +23,7 @@ const Payment = () => {
             }
 
         }).then(res => {
-            console.log(res)
+          
             return res.json()
         }))
 
