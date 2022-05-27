@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "assignment-12-785e5"
-  }
+    "default": "assignment-12-785e5",
+    "build": "assignment-12-785e5"
+  },
+  "targets": {}
 }
