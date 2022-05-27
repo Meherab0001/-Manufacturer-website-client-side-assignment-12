@@ -11,7 +11,7 @@ import OrderList from './OrderList';
 const MyOrder = () => {
     const [user] = useAuthState(auth)
 
-    const { data: order, isLoading } = useQuery('order', () => fetch(`https://young-fjord-38482.herokuapp.com/${user.email}`,{
+    const { data: order, isLoading } = useQuery('order', () => fetch(`https://young-fjord-38482.herokuapp.com/order/${user.email}`,{
         method: "GET",
         headers: {
             'authorization': `Bearer ${localStorage.getItem('accessToken')}`
@@ -22,7 +22,7 @@ const MyOrder = () => {
     }
     return (
         <div>
-            <h1>Customer orders here{order.length}</h1>
+            
             <div class="overflow-x-auto">
                 <table class="table w-full">
 

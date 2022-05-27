@@ -5,7 +5,6 @@ import {
     useStripe,
     useElements,
 } from '@stripe/react-stripe-js';
-import { type } from '@testing-library/user-event/dist/type';
 const CheckoutFrom = ({payment}) => {
     const stripe = useStripe();
     const [cardError,setCardError]=useState('')
