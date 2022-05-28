@@ -2,7 +2,8 @@ import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import auth from '../../firebase.init';
 
 import Loading from '../SharedComponent/Loading';
@@ -10,7 +11,7 @@ import Loading from '../SharedComponent/Loading';
 
 const MyProfile = () => {
     const [user, loading, error] = useAuthState(auth);
-
+    const navigate=useNavigate()
 
     console.log(user?.displayName)
     const { register, formState: { errors }, handleSubmit ,reset} = useForm();
@@ -27,7 +28,9 @@ const MyProfile = () => {
             edu:data.edu
         }
         console.log(updateProfile)
-        console.log(updateProfile)
+        if (loading) {
+            return <Loading></Loading>
+        }
         fetch('https://young-fjord-38482.herokuapp.com/profile', {
             method: 'POST',
             headers: {
@@ -37,15 +40,20 @@ const MyProfile = () => {
             body: JSON.stringify(updateProfile)
         })
             .then((res => {
-                console.log(res)
+
+                if(res.status ===200){
+                   navigate('/dashboard/profile') 
+                }
+                else{
+                    toast.error('Please try again')
+                }
+           console.log(res)
                 return res.json()
             }))
         reset()
 
      
-        if (loading) {
-            return <Loading></Loading>
-        }
+       
     }
 
     return (
@@ -209,10 +217,10 @@ const MyProfile = () => {
 
                     </label>
                 </div>
-
-               <Link to='profile'> <input 
-          
-          className='btn  w-full max-w-xs text-white' type="submit" value="Update Your Profile" /></Link>
+             <input 
+          className='btn  w-full max-w-xs text-white' type="submit" value="Update Your Profile" />
+             
+       
 
             </form>
            

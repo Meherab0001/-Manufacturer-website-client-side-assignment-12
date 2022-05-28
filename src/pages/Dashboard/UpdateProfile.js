@@ -13,8 +13,9 @@ const UpdateProfile = () => {
             'authorization': `Bearer ${localStorage.getItem('accessToken')}`
         }
     }).then(res => {
-       
+   
         return res.json()}))
+        
         refetch()
         if(isLoading){
             return <Loading></Loading>
@@ -27,9 +28,9 @@ const UpdateProfile = () => {
                 <h2 className="text-2x">email:{user.email}</h2>
                 <div className='mt-3'>
             
-                <p>Phone:{profile &&  profile?.[0].phone || ''}</p>
-                <p>Eduaction:{profile && profile?.[0].edu || ''}</p>
-                <p>Linkedin:{profile &&  profile?.[0].link  || ""}</p>
+                <p>Phone:{ profile?.[0].phone }</p>
+                <p>Eduaction:{ profile?.[0].edu }</p>
+                <p>Linkedin:{ profile?.[0].link  }</p>
                 </div>
             </div>
         </div>
