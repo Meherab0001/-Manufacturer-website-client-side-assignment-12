@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
-import { useQuery } from 'react-query';
+
+import { Link } from 'react-router-dom';
 import auth from '../../firebase.init';
-import useUpdateProfile from '../../hooks/useUpdateProfile';
+
 import Loading from '../SharedComponent/Loading';
+
 
 const MyProfile = () => {
     const [user, loading, error] = useAuthState(auth);
-    const [updateProfile]=useUpdateProfile(user)
+
 
     console.log(user?.displayName)
     const { register, formState: { errors }, handleSubmit ,reset} = useForm();
@@ -21,7 +23,8 @@ const MyProfile = () => {
             name:user?.displayName,
             address: data.address,
             phone: data.phone,
-            link: data.link
+            link: data.link,
+            edu:data.edu
         }
         console.log(updateProfile)
         console.log(updateProfile)
@@ -46,7 +49,7 @@ const MyProfile = () => {
     }
 
     return (
-        <div>
+        <div >
         
        
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -156,6 +159,32 @@ const MyProfile = () => {
                 </div>
             <div class="form-control w-full max-w-xs">
                     <label class="label">
+                        <span class="label-text">Education</span>
+
+                    </label>
+                    <input type="text"
+                    
+                        placeholder="Your Eduactional skill"
+                        class="input input-bordered w-full max-w-xs"
+                        {...register("edu",
+
+                            {
+
+                                required: {
+                                    value: true,
+                                    message: 'Link is Required'
+                                },
+
+                            }
+                        )}
+                    />
+                    <label class="label">
+                        {errors.edu?.type === 'required' && <span class="label-text-alt text-red-500">{errors.edu.message}</span>}
+
+                    </label>
+                </div>
+            <div class="form-control w-full max-w-xs">
+                    <label class="label">
                         <span class="label-text">LinkedIn</span>
 
                     </label>
@@ -181,11 +210,12 @@ const MyProfile = () => {
                     </label>
                 </div>
 
-                <input 
+               <Link to='profile'> <input 
           
-                className='btn  w-full max-w-xs text-white' type="submit" value="Update Your Profile" />
+          className='btn  w-full max-w-xs text-white' type="submit" value="Update Your Profile" /></Link>
 
             </form>
+           
 
         </div>
     );

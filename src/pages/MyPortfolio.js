@@ -71,22 +71,23 @@ const MyPortfolio = () => {
             <div className=''>
                 <h2 className="text-2xl text-info">My Projects</h2>
                 <div className='mt-3'>
-                    <h2 className="text-xl text-primary">Simple Project</h2>
-                    <Link className='text-blue-500' to=''>Live link</Link>
+                    <h2 className="text-xl text-primary">Landing page </h2>
+                    <a className='text-blue-500' href="https://nadia-convention-center.netlify.app/">Live Link</a>
+                    <h3 className='text-xl'>Tools:</h3>
+                    <p>HTML5,CSS,Bootstrap</p>
+                </div>
+                <div className='mt-3'>
+                    <h2 className="text-xl text-primary">Javascript raw and Problem solving</h2>
+                   <a className='text-blue-500' href="https://stupefied-ptolemy-2fa6a0.netlify.app/">Live link</a>
                     <h3 className='text-xl'>Tools:</h3>
                     <p>HTML5,CSS,Javascript</p>
                 </div>
                 <div className='mt-3'>
-                    <h2 className="text-xl text-primary">Simple Project</h2>
-                    <Link className='text-blue-500' to=''>Live link</Link>
+                    <h2 className="text-xl text-primary">Full stak Project</h2>
+                    
+                    <a href="https://assignment-12-785e5.web.app/">Live link</a>
                     <h3 className='text-xl'>Tools:</h3>
-                    <p>HTML5,CSS,Javascript</p>
-                </div>
-                <div className='mt-3'>
-                    <h2 className="text-xl text-primary">Simple Project</h2>
-                    <Link className='text-blue-500' to=''>Live link</Link>
-                    <h3 className='text-xl'>Tools:</h3>
-                    <p>HTML5,CSS,Javascript</p>
+                    <p> Express Js,Node Js,MongoDb,Rect Js,Firebase,Daisy UI</p>
                 </div>
             </div>
          

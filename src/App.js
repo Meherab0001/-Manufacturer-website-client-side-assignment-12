@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import MyOrder from './pages/Dashboard/MyOrder';
 import MyProfile from './pages/Dashboard/MyProfile';
 import Payment from './pages/Dashboard/Payment';
+import UpdateProfile from './pages/Dashboard/UpdateProfile';
 import Users from './pages/Dashboard/Users';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
@@ -39,6 +40,7 @@ function App() {
         </RequrireAuth>}>
 
           <Route index element={<MyProfile />}></Route>
+          <Route path='profile' element={<UpdateProfile />}></Route>
           <Route path='orders' element={<MyOrder />}></Route>
           <Route path='order/:id' element={<Payment />}></Route>
           <Route path='review' element={<AddReview />}></Route>
