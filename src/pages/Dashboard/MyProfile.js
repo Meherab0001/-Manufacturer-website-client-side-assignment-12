@@ -25,7 +25,7 @@ const MyProfile = () => {
         }
         console.log(updateProfile)
         console.log(updateProfile)
-        fetch('http://localhost:5000/profile', {
+        fetch('https://young-fjord-38482.herokuapp.com/profile', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
