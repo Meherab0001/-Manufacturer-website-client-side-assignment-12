@@ -67,9 +67,3 @@ const Reviews = () => {
 
 export default Reviews;
 
-{/*  {newReview.map(review => <Review
-                            key={review._id}
-                            review={review}
-                        >
-
-                        </Review>)} */}
