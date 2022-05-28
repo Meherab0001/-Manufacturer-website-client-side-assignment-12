@@ -11,13 +11,13 @@ const Navbar = () => {
     localStorage.removeItem('accessToken')
   };
   const [user, loading, error] = useAuthState(auth);
+  console.log(user?.displayName)
 
   const menuItem = <>
     <li><Link to="/">Home</Link></li>
     <li><Link to="/portfolio">My Portfolio</Link></li>
     <li><Link to="/blog">Blogs</Link></li>
 
-    <li><Link to="/contact">Contact Us</Link></li>
     {
       user && <>
       
@@ -49,7 +49,7 @@ const Navbar = () => {
 
           </ul>
         </div>
-        <Link to="/"> <img className='w-32 h-12' src={logo} alt="" /></Link>
+        <Link className='text-xl font-serif text-teal-400' to="/"> Car Tools Manufacturing</Link>
       </div>
       <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal p-0">

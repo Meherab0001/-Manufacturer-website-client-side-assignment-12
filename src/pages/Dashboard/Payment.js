@@ -30,7 +30,7 @@ const Payment = () => {
     if (isLoading) {
         return <Loading></Loading>
     }
-    console.log(payment)
+
     return (
         <div>
 

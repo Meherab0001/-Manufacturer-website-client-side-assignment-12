@@ -11,12 +11,13 @@ import OrderList from './OrderList';
 const MyOrder = () => {
     const [user] = useAuthState(auth)
 
-    const { data: order, isLoading } = useQuery('order', () => fetch(`https://young-fjord-38482.herokuapp.com/order/${user.email}`,{
+    const { data: order, isLoading,refetch } = useQuery('order', () => fetch(`https://young-fjord-38482.herokuapp.com/order/${user.email}`,{
         method: "GET",
         headers: {
             'authorization': `Bearer ${localStorage.getItem('accessToken')}`
         }
     }).then(res => res.json()))
+    refetch()
     if (isLoading) {
         return <Loading></Loading>
     }
@@ -42,6 +43,7 @@ const MyOrder = () => {
                             pOrder={pOrder}
                             key={pOrder._id}
                             index={index}
+                            
                             ></OrderList>)
                         }
 

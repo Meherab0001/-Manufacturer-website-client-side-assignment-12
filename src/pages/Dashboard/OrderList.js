@@ -15,6 +15,7 @@ const OrderList = ({pOrder,index}) => {
                 <td>{(price && !paid) && <Link to={`/dashboard/order/${_id}`}><button className='btn btn-xs btn-success'>Pay</button></Link>}</td>
                 <td>{(price && paid) && <span className='btn btn-xs btn-success'>Paid</span>}</td>
                 <td><button class="btn btn-xs">Cancel</button></td>
+               
             </tr>
        
     );

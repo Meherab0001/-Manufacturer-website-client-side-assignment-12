@@ -22,7 +22,7 @@ const AddReview = () => {
         body: JSON.stringify(review)
        })
         .then((res =>res.json()))
-      
+       review.value('')
     }
     return (
         <section className=''

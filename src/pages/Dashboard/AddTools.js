@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 
 const AddTools = () => {
-    const { register, formState: { errors }, handleSubmit } = useForm();
+    const { register, formState: { errors }, handleSubmit ,reset} = useForm();
 
     const imageStoreKey = '1844e0acbd9be3a9a02d26c79a260bfb'
 
@@ -18,30 +18,36 @@ const AddTools = () => {
         })
             .then(res => res.json())
             .then(result => {
-                console.log('imgbb', result)
-            })
-        const addTools = {
-            name: data.name,
-            description: data.description,
-            price: data.price,
-            img:data.img,
-            minimum_quantity: data.minimum_quantity,
-            quantity: data.quantity
+                const img=result.data.url
+                const addTools = {
+                    name: data.name,
+                    description: data.description,
+                    price: data.price,
+                    img:img,
+                    minimum_quantity: data.minimum_quantity,
+                    quantity: data.quantity
+        
+                }
 
-        }
-        console.log(addTools)
-        fetch('https://young-fjord-38482.herokuapp.com/tools', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json',
-                authorization: `Bearer ${localStorage.getItem('accessToken')}`
-            },
-            body: JSON.stringify(addTools)
-        })
-            .then((res => {
-                console.log(res)
-                return res.json()
-            }))
+
+                fetch('https://young-fjord-38482.herokuapp.com/tools', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json',
+                        authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                    },
+                    body: JSON.stringify(addTools)
+                })
+                    .then((res => {
+                        console.log(res)
+                        return res.json()
+                    }))
+            })
+          
+       
+      
+        reset()
+      
 
     };
     return (
@@ -54,7 +60,7 @@ const AddTools = () => {
 
                     </label>
                     <input type="text"
-                        placeholder="Your Name"
+                        placeholder="Tools Name"
                         class="input input-bordered w-full max-w-xs"
                         {...register("name",
 
@@ -79,7 +85,7 @@ const AddTools = () => {
 
                     </label>
                     <input type="file"
-                        placeholder="Your Name"
+                     
                         class="input input-bordered w-full max-w-xs"
                         {...register("img",
 
@@ -104,7 +110,7 @@ const AddTools = () => {
 
                     </label>
                     <input type="text"
-                        placeholder="Your Name"
+                        placeholder="Price per unit"
                         class="input input-bordered w-full max-w-xs"
                         {...register("price",
 
@@ -129,7 +135,7 @@ const AddTools = () => {
 
                     </label>
                     <input type="text"
-                        placeholder="Your Name"
+                        placeholder="Minimum Quantity"
                         class="input input-bordered w-full max-w-xs"
                         {...register("minimum_quantity",
 
@@ -154,7 +160,7 @@ const AddTools = () => {
 
                     </label>
                     <input type="text"
-                        placeholder="Your Name"
+                        placeholder="Quantity"
                         class="input input-bordered w-full max-w-xs"
                         {...register("quantity",
 
@@ -179,7 +185,7 @@ const AddTools = () => {
 
                     </label>
                     <input type="text"
-                        placeholder="Your Name"
+                        placeholder="Description tools"
                         class="input input-bordered w-full max-w-xs"
                         {...register("description",
 

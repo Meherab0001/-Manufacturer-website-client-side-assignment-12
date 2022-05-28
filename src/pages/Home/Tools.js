@@ -21,9 +21,9 @@ const Tools = () => {
     return (
         <div className='my-28'>
             <h2 className='text-4xl font-bold text-primary text-center'>Our Available Parts</h2>
-            <div className='grid lg:grid-cols-3 sm:grid-cols-1 gap-10'>
+            <div className='grid lg:grid-cols-3 mt-5 sm:grid-cols-1 gap-10'>
                 {
-                    tools.map(parts =><Parts
+                    tools.reverse().map(parts =><Parts
                         key={parts._id}
                         parts={parts}
                     ></Parts>)

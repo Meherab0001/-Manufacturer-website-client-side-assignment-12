@@ -47,7 +47,7 @@ const Purchase = () => {
             email: user.email,
             location: data.location,
         }
-        fetch('https://young-fjord-38482.herokuapp.com/', {
+        fetch('https://young-fjord-38482.herokuapp.com/order', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

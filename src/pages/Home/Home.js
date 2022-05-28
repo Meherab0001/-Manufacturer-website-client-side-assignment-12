@@ -4,6 +4,7 @@ import auth from '../../firebase.init';
 import Loading from '../SharedComponent/Loading';
 import Banner from './Banner';
 import BussinessSummary from './BussinessSummary';
+import ExtaBanner from './ExtaBanner';
 import Reviews from './Reviews';
 import Tools from './Tools';
 import WholeSale from './WholeSale';
@@ -18,6 +19,7 @@ const Home = () => {
     return (
         <div className=''>
             <Banner></Banner>
+            <ExtaBanner></ExtaBanner>
             <Tools></Tools>        
             <Reviews></Reviews>
             <BussinessSummary></BussinessSummary>
