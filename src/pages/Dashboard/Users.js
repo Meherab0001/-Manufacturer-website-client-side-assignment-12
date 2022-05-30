@@ -17,7 +17,7 @@ const Users = () => {
     }
     return (
         <div>
-            <h1>This page user{users.length}</h1>
+          
             <div class="overflow-x-auto">
                 <table class="table w-full">
 
